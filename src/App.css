@@ -18,12 +18,42 @@
 }
 
 .sourcesOuterDiv {
+  position: relative;
   padding: 30px 0 0 30px;
   border-top: 2px solid;
   border-left: 2px solid;
 }
 
-.sourcesOuterDiv > div {
-  height: 8rem;
+.sourcesOuterDiv > div:nth-child(1) {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.sourcesOuterDiv > div:nth-child(1) > svg {
+  font-size: 4rem;
+  background: #fff;
+  border-radius: 50%;
+}
+
+.sourcesInnerDiv {
+  text-align: center;
+  /* height: 10rem; */
+  height: auto;
   border: 2px solid;
+  padding: 10px 10px;
+}
+
+.linkStyle {
+  justify-content: start;
+  text-align: center;
+  border: 1px solid #95c2ea;
+  border-radius: 10px;
+  padding: 0 15px;
+}
+
+.addLinkDiv{
+  margin-top: 10px;
+  align-items: center;
+  justify-content: space-around;
 }

@@ -22,21 +22,25 @@ const Sources = () => {
       name: "facebook",
       icon: <Facebook style={{ color: "#7259ff" }} />,
       selected: false,
+      inputs: ["asdasd", "asdasd"],
     },
     {
       name: "twitter",
       icon: <Twitter style={{ color: "#7ac9f9" }} />,
       selected: false,
+      inputs: [],
     },
     {
       name: "youtube",
       icon: <YouTube style={{ color: "#FF0000" }} />,
       selected: false,
+      inputs: [],
     },
     {
       name: "discord",
       icon: <Reddit style={{ color: "#FF4F0F" }} />,
       selected: false,
+      inputs: [],
     },
   ]);
   const [sources, setSources] = useState([]);
@@ -63,9 +67,32 @@ const Sources = () => {
     console.log(sources);
   };
 
+  const deleteLink = (e, id, id1) => {
+    let tempSources = sources.map((el, i) => {
+      if (i === id) {
+        var tempSourcesInputs = el.inputs.map((inEl, j) => {
+          if (j !== id1) {
+            return inEl;
+          }
+        });
+        return { ...el, inputs: tempSourcesInputs };
+      } else return el;
+    });
+    setSources(tempSources);
+  };
+
+  const addLink = (e, val, id) => {
+    let tempSources = sources.map((el, i) => {
+      if (i === id) {
+        return { ...el, inputs: [...el.inputs, val] };
+      } else return el;
+    });
+    setSources(tempSources);
+  };
+
   return (
     <div style={{ margin: "0 3%" }}>
-      <Grid container>
+      <Grid container spacing={3}>
         {/* Select sources */}
 
         <Grid item lg={2}>
@@ -79,6 +106,7 @@ const Sources = () => {
                     value={item.name}
                     control={
                       <Checkbox
+                        disabled={configSources}
                         color="#000"
                         checked={item.selected}
                         onChange={onSelectCheck}
@@ -98,8 +126,18 @@ const Sources = () => {
 
         {/* Configure Sources */}
         <Grid item lg={6}>
-          <h3>Configure Sources</h3>
-          <ConfigSources sources={sources} />
+          {sources.length ? (
+            <>
+              <h3>Configure Sources</h3>
+              <ConfigSources
+                sources={sources}
+                deleteLink={deleteLink}
+                addLink={addLink}
+              />
+            </>
+          ) : (
+            <></>
+          )}
         </Grid>
       </Grid>
     </div>
