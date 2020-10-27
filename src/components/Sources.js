@@ -15,29 +15,30 @@ import {
   ArrowForwardIos,
 } from "@material-ui/icons";
 import ConfigSources from "./ConfigSources";
+import IngestionBtn from "./IngestionBtn";
 
 const Sources = () => {
   const [social, setSocial] = useState([
     {
-      name: "facebook",
+      name: "Facebook",
       icon: <Facebook style={{ color: "#7259ff" }} />,
       selected: false,
       inputs: ["asdasd", "asdasd"],
     },
     {
-      name: "twitter",
+      name: "Twitter",
       icon: <Twitter style={{ color: "#7ac9f9" }} />,
       selected: false,
       inputs: [],
     },
     {
-      name: "youtube",
+      name: "Youtube",
       icon: <YouTube style={{ color: "#FF0000" }} />,
       selected: false,
       inputs: [],
     },
     {
-      name: "discord",
+      name: "Reddit",
       icon: <Reddit style={{ color: "#FF4F0F" }} />,
       selected: false,
       inputs: [],
@@ -82,12 +83,14 @@ const Sources = () => {
   };
 
   const addLink = (e, val, id) => {
-    let tempSources = sources.map((el, i) => {
-      if (i === id) {
-        return { ...el, inputs: [...el.inputs, val] };
-      } else return el;
-    });
-    setSources(tempSources);
+    if (val !== "") {
+      let tempSources = sources.map((el, i) => {
+        if (i === id) {
+          return { ...el, inputs: [...el.inputs, val] };
+        } else return el;
+      });
+      setSources(tempSources);
+    }
   };
 
   return (
@@ -138,6 +141,11 @@ const Sources = () => {
           ) : (
             <></>
           )}
+        </Grid>
+
+        {/* Ingestion Button */}
+        <Grid item lg={3}>
+          <IngestionBtn sources={sources} configSources={configSources} />
         </Grid>
       </Grid>
     </div>

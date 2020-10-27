@@ -5,7 +5,7 @@ import {
   TextField,
   useTheme,
 } from "@material-ui/core";
-import { CancelOutlined, PlayCircleFilled } from "@material-ui/icons";
+import { ArrowBack, ArrowForward, CancelOutlined } from "@material-ui/icons";
 import React, { useState } from "react";
 import SwipeableViews from "react-swipeable-views";
 
@@ -65,7 +65,10 @@ const ConfigSources = ({ sources, deleteLink, addLink }) => {
                     style={{ width: "30%", padding: 10 }}
                     variant="contained"
                     disableElevation
-                    onClick={(e) => addLink(e, textValue, id)}
+                    onClick={(e) => {
+                      addLink(e, textValue, id);
+                      setTextValue("");
+                    }}
                   >
                     Add
                   </Button>
@@ -75,13 +78,35 @@ const ConfigSources = ({ sources, deleteLink, addLink }) => {
           </div>
         ))}
       </SwipeableViews>
-      <Grid style={{textAlign: 'right'}}>
-        <IconButton
-          onClick={() => value <= sources.length - 2 && setValue(value + 1)}
-        >
-          <PlayCircleFilled />
-        </IconButton>
-        <div>{sources[value + 1] ? sources[value + 1].name : ''}</div>
+      <Grid container>
+        <Grid item lg={6}>
+          {sources[value - 1] ? (
+            <>
+              <IconButton
+                onClick={() =>
+                  value <= sources.length + 2 && setValue(value - 1)
+                }
+              >
+                <ArrowBack />
+              </IconButton>
+              <div>{sources[value - 1].name}</div>
+            </>
+          ) : (
+            <></>
+          )}
+        </Grid>
+        {sources[value + 1] ? (
+          <Grid item lg={6} style={{ textAlignLast: "right" }}>
+            <IconButton
+              onClick={() => value <= sources.length - 2 && setValue(value + 1)}
+            >
+              <ArrowForward />
+            </IconButton>
+            <div>{sources[value + 1].name}</div>
+          </Grid>
+        ) : (
+          <></>
+        )}
       </Grid>
     </div>
   );
